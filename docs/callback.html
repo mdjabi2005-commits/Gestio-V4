@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Callback bancaire - Gestio V4</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.5; margin: 32px; color: #111; }
+    .box { padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }
+    .label { font-weight: bold; margin-top: 16px; }
+    .mono { font-family: Consolas, monospace; word-break: break-all; }
+    button { margin-top: 8px; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <h1>Connexion bancaire terminee</h1>
+  <p>Copiez le code ci-dessous et collez-le dans l'application locale.</p>
+
+  <div class="label">Code</div>
+  <div id="code" class="box mono">(aucun code)</div>
+  <button id="copy-code">Copier le code</button>
+
+  <div class="label">State (optionnel)</div>
+  <div id="state" class="box mono">(aucun state)</div>
+  <button id="copy-state">Copier le state</button>
+
+  <p>Vous pouvez fermer cette page apres avoir copie les valeurs.</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code") || "";
+    const state = params.get("state") || "";
+
+    const codeEl = document.getElementById("code");
+    const stateEl = document.getElementById("state");
+
+    if (code) {
+      codeEl.textContent = code;
+    }
+    if (state) {
+      stateEl.textContent = state;
+    }
+
+    document.getElementById("copy-code").addEventListener("click", () => {
+      if (!code) return;
+      navigator.clipboard.writeText(code);
+    });
+
+    document.getElementById("copy-state").addEventListener("click", () => {
+      if (!state) return;
+      navigator.clipboard.writeText(state);
+    });
+  </script>
+</body>
+</html>
